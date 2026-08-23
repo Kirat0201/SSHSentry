@@ -1,19 +1,19 @@
-# SSH Log Sentinel 🛡️
+# SSHSentry 🛡️
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-SOC%20Ready-red.svg)]()
 [![Code Style](https://img.shields.io/badge/Code%20Style-PEP%208-black.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 > **A production-grade, zero-dependency Python tool for detecting SSH brute-force attacks in real-time**
 
-SSH Log Sentinel is a robust command-line utility designed for Security Operations Centers (SOCs) and system administrators to identify and analyze SSH brute-force attack patterns from Linux authentication logs. Built with enterprise-grade architecture, it provides actionable threat intelligence through multiple export formats.
+SSHSentry is a robust command-line utility designed for Security Operations Centers (SOCs) and system administrators to identify and analyze SSH brute-force attack patterns from Linux authentication logs. Built with enterprise-grade architecture, it provides actionable threat intelligence through multiple export formats.
 
 ---
 
 ## 📋 Executive Summary
 
-SSH brute-force attacks remain one of the most prevalent threats to Linux servers. SSH Log Sentinel provides a lightweight, portable solution that:
+SSH brute-force attacks remain one of the most prevalent threats to Linux servers. SSHSentry provides a lightweight, portable solution that:
 
 - **Detects** malicious IP addresses attempting brute-force attacks
 - **Analyzes** authentication patterns to assess threat severity
@@ -59,32 +59,32 @@ This tool is ideal for:
 No installation required! Simply clone or download the repository:
 
 ```bash
-git clone https://github.com/Kirat0201/SSH-Log-Analyzer.git
-cd SSH-Log-Analyzer
+git clone https://github.com/Kirat0201/SSHSentry.git
+cd SSHSentry
 ```
 
 ### Basic Usage
 
 1. **Generate test data** (for demonstration):
 ```bash
-python generate_dummy_data.py --output auth.log --lines 1000
+python generate_test_logs.py --output auth.log --lines 1000
 ```
 
 2. **Run the analysis**:
 ```bash
-python log_sentinel.py --file auth.log --threshold 5
+python ssh_sentry.py --file auth.log --threshold 5
 ```
 
 3. **Export results**:
 ```bash
 # Export to CSV
-python log_sentinel.py --file auth.log --threshold 10 --output csv --output-file threats.csv
+python ssh_sentry.py --file auth.log --threshold 10 --output csv --output-file threats.csv
 
 # Export to JSON
-python log_sentinel.py --file auth.log --threshold 10 --output json --output-file threats.json
+python ssh_sentry.py --file auth.log --threshold 10 --output json --output-file threats.json
 
 # Export to both formats
-python log_sentinel.py --file auth.log --threshold 10 --output both --output-file threats
+python ssh_sentry.py --file auth.log --threshold 10 --output both --output-file threats
 ```
 
 ### Real-World Usage
@@ -93,13 +93,13 @@ python log_sentinel.py --file auth.log --threshold 10 --output both --output-fil
 
 ```bash
 # On Debian/Ubuntu systems
-sudo python log_sentinel.py --file /var/log/auth.log --threshold 5
+sudo python ssh_sentry.py --file /var/log/auth.log --threshold 5
 
 # On RedHat/CentOS systems
-sudo python log_sentinel.py --file /var/log/secure --threshold 5
+sudo python ssh_sentry.py --file /var/log/secure --threshold 5
 
 # Lower threshold for stricter detection
-sudo python log_sentinel.py --file /var/log/auth.log --threshold 3 --output csv --output-file daily_threats.csv
+sudo python ssh_sentry.py --file /var/log/auth.log --threshold 3 --output csv --output-file daily_threats.csv
 ```
 
 ---
@@ -108,13 +108,13 @@ sudo python log_sentinel.py --file /var/log/auth.log --threshold 3 --output csv 
 
 ### Example 1: Basic Console Output
 ```bash
-python log_sentinel.py --file auth.log --threshold 5
+python ssh_sentry.py --file auth.log --threshold 5
 ```
 
 **Output:**
 ```
 ================================================================================
-              SSH LOG SENTINEL - THREAT ANALYSIS REPORT
+              SSHSENTRY - THREAT ANALYSIS REPORT
 ================================================================================
 
 Generated: 2024-11-22 16:00:00
@@ -148,10 +148,10 @@ IP Address         Attempts   Threat     Usernames            Last Seen
 ### Example 2: Generate Custom Test Data
 ```bash
 # Generate 5000 lines with 80% attack traffic
-python generate_dummy_data.py --output large_test.log --lines 5000 --attack-ratio 0.8
+python generate_test_logs.py --output large_test.log --lines 5000 --attack-ratio 0.8
 
 # Generate logs for a specific hostname
-python generate_dummy_data.py --output prod_server.log --lines 2000 --hostname prod-web-01
+python generate_test_logs.py --output prod_server.log --lines 2000 --hostname prod-web-01
 ```
 
 ### Example 3: Automated Daily Reporting
@@ -163,11 +163,11 @@ Create a bash script for daily analysis:
 
 DATE=$(date +%Y-%m-%d)
 LOG_FILE="/var/log/auth.log"
-OUTPUT_DIR="/var/log/ssh_sentinel"
+OUTPUT_DIR="/var/log/ssh_sentry"
 
 mkdir -p "$OUTPUT_DIR"
 
-python /path/to/log_sentinel.py \
+python /path/to/ssh_sentry.py \
     --file "$LOG_FILE" \
     --threshold 5 \
     --output both \
@@ -182,11 +182,11 @@ echo "Analysis complete. Reports saved to $OUTPUT_DIR"
 
 ### Architecture Overview
 
-SSH Log Sentinel follows **Object-Oriented Programming** principles with clear separation of concerns:
+SSHSentry follows **Object-Oriented Programming** principles with clear separation of concerns:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     SSH Log Sentinel                         │
+│                     SSHSentry                         │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │  ┌────────────────┐    ┌──────────────────┐                │
@@ -317,12 +317,12 @@ Nov 22 14:34:20 server sshd[1238]: Connection closed by authenticating user root
 ## 📁 File Structure
 
 ```
-SSH-Log-Analyzer/
+SSHSentry/
 │
-├── log_sentinel.py           # Main analysis tool (SOC-ready)
-├── generate_dummy_data.py    # Test data generator
-├── README.md                 # This documentation
-├── LICENSE                   # MIT License
+├── ssh_sentry.py               # Main analysis tool (SOC-ready)
+├── generate_test_logs.py       # Test data generator
+├── README.md                   # This documentation
+├── LICENSE                     # Apache 2.0 License
 │
 └── (Generated Files)
     ├── auth.log              # Sample log data (after running generator)
@@ -334,7 +334,7 @@ SSH-Log-Analyzer/
 
 ## 🛠️ Command-Line Options
 
-### log_sentinel.py
+### ssh_sentry.py
 
 | Option | Required | Description | Default |
 |--------|----------|-------------|---------|
@@ -344,14 +344,14 @@ SSH-Log-Analyzer/
 | `--output-file` | No | Output file path (base name for `both`) | threats |
 | `--version` | No | Show version information | - |
 
-### generate_dummy_data.py
+### generate_test_logs.py
 
 | Option | Required | Description | Default |
 |--------|----------|-------------|---------|
 | `--output` | No | Output file path | auth.log |
 | `--lines` | No | Total number of log lines | 1000 |
 | `--attack-ratio` | No | Ratio of attack to legitimate traffic (0.0-1.0) | 0.7 |
-| `--hostname` | No | Hostname in log entries | sentinel-test |
+| `--hostname` | No | Hostname in log entries | sentry-test |
 
 ---
 
@@ -359,12 +359,12 @@ SSH-Log-Analyzer/
 
 ### Step 1: Generate Test Data
 ```bash
-python generate_dummy_data.py --output test_auth.log --lines 2000
+python generate_test_logs.py --output test_auth.log --lines 2000
 ```
 
 **Expected Output:**
 ```
-SSH Log Sentinel - Dummy Log Generator
+SSHSentry - Dummy Log Generator
 ==================================================
 Generating 2000 log entries...
 
@@ -389,12 +389,12 @@ Malicious IPs in dataset:
 
 ### Step 2: Run Analysis
 ```bash
-python log_sentinel.py --file test_auth.log --threshold 10
+python ssh_sentry.py --file test_auth.log --threshold 10
 ```
 
 ### Step 3: Export Results
 ```bash
-python log_sentinel.py --file test_auth.log --threshold 10 --output both --output-file results
+python ssh_sentry.py --file test_auth.log --threshold 10 --output both --output-file results
 ```
 
 ### Step 4: Verify Outputs
@@ -448,7 +448,7 @@ ip_address,failed_attempts,threat_level,usernames_targeted,first_seen,last_seen
 {
   "metadata": {
     "generated_at": "2024-11-22T16:00:00",
-    "tool": "SSH Log Sentinel",
+    "tool": "SSHSentry",
     "version": "1.0.0"
   },
   "statistics": {
@@ -515,7 +515,7 @@ This project demonstrates:
 For issues, questions, or suggestions:
 - Open an issue on GitHub
 - Review the Technical Deep Dive section
-- Check command-line help: `python log_sentinel.py --help`
+- Check command-line help: `python ssh_sentry.py --help`
 
 ---
 
@@ -534,8 +534,8 @@ Potential additions (maintaining zero-dependency philosophy):
 **⚡ Start protecting your SSH infrastructure today!**
 
 ```bash
-python generate_dummy_data.py --output auth.log
-python log_sentinel.py --file auth.log --threshold 5
+python generate_test_logs.py --output auth.log
+python ssh_sentry.py --file auth.log --threshold 5
 ```
 
 ---

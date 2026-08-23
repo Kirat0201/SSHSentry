@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dummy Authentication Log Generator for SSH Log Sentinel Testing
+Dummy Authentication Log Generator for SSHSentry Testing
 
 This script generates realistic fake authentication log data that mimics
 the format of Linux auth.log files. It creates a mixture of legitimate
@@ -25,7 +25,7 @@ class DummyLogGenerator:
     
     This class creates log entries that simulate both normal SSH usage
     and brute-force attack patterns, allowing for comprehensive testing
-    of the SSH Log Sentinel tool.
+    of the SSHSentry tool.
     """
     
     # Common legitimate usernames
@@ -103,7 +103,7 @@ class DummyLogGenerator:
         self,
         total_lines: int = 1000,
         attack_ratio: float = 0.7,
-        hostname: str = "sentinel-test"
+        hostname: str = "sentry-test"
     ):
         """
         Initialize the dummy log generator.
@@ -300,7 +300,7 @@ Examples:
   %(prog)s --output /var/log/test_auth.log --lines 2000 --hostname myserver
 
 This will generate a mix of legitimate SSH traffic and brute-force attacks
-from specific malicious IPs, allowing you to test the SSH Log Sentinel tool.
+from specific malicious IPs, allowing you to test the SSHSentry tool.
         """
     )
     
@@ -328,8 +328,8 @@ from specific malicious IPs, allowing you to test the SSH Log Sentinel tool.
     parser.add_argument(
         '--hostname',
         type=str,
-        default='sentinel-test',
-        help='Hostname to use in log entries (default: sentinel-test)'
+        default='sentry-test',
+        help='Hostname to use in log entries (default: sentry-test)'
     )
     
     return parser.parse_args()
@@ -355,7 +355,7 @@ def main() -> int:
             print("❌ Error: --lines must be at least 10")
             return 1
         
-        print("SSH Log Sentinel - Dummy Log Generator")
+        print("SSHSentry - Dummy Log Generator")
         print("=" * 50)
         print(f"Generating {args.lines} log entries...")
         print()
@@ -374,7 +374,7 @@ def main() -> int:
         print("✓ Log generation complete!")
         print()
         print("Next steps:")
-        print(f"  python log_sentinel.py --file {args.output} --threshold 5")
+        print(f"  python ssh_sentry.py --file {args.output} --threshold 5")
         
         return 0
         

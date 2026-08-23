@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SSH Log Sentinel - Production-Grade SSH Brute-Force Attack Detection Tool
+SSHSentry - Production-Grade SSH Brute-Force Attack Detection Tool
 
 This module provides a robust, enterprise-ready solution for detecting SSH
 brute-force attacks by analyzing Linux authentication logs. It implements
@@ -367,7 +367,7 @@ class ReportGenerator:
             statistics: Overall statistics dictionary
         """
         print("\n" + "="*80)
-        print("SSH LOG SENTINEL - THREAT ANALYSIS REPORT".center(80))
+        print("SSHSENTRY - THREAT ANALYSIS REPORT".center(80))
         print("="*80)
         print(f"\nGenerated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
@@ -490,7 +490,7 @@ class ReportGenerator:
             report_data = {
                 'metadata': {
                     'generated_at': datetime.now().isoformat(),
-                    'tool': 'SSH Log Sentinel',
+                    'tool': 'SSHSentry',
                     'version': '1.0.0'
                 },
                 'statistics': statistics,
@@ -523,7 +523,7 @@ class ReportGenerator:
             raise
 
 
-class SSHLogSentinel:
+class SSHSentry:
     """
     Main application class coordinating log analysis workflow.
     
@@ -533,7 +533,7 @@ class SSHLogSentinel:
     
     def __init__(self, log_file: str, threshold: int):
         """
-        Initialize the SSH Log Sentinel application.
+        Initialize the SSHSentry application.
         
         Args:
             log_file: Path to the authentication log file
@@ -542,7 +542,7 @@ class SSHLogSentinel:
         self.parser = LogParser(log_file)
         self.analyzer = ThreatAnalyzer(threshold)
         self.reporter = ReportGenerator()
-        logger.info("SSH Log Sentinel initialized successfully")
+        logger.info("SSHSentry initialized successfully")
     
     def run_analysis(self) -> Tuple[List[ThreatReport], Dict[str, int]]:
         """
@@ -581,7 +581,7 @@ def parse_arguments() -> argparse.Namespace:
         Parsed arguments namespace
     """
     parser = argparse.ArgumentParser(
-        description='SSH Log Sentinel - Detect SSH brute-force attacks from authentication logs',
+        description='SSHSentry - Detect SSH brute-force attacks from authentication logs',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -589,7 +589,7 @@ Examples:
   %(prog)s --file auth.log --threshold 5 --output csv --output-file threats.csv
   %(prog)s --file auth.log --threshold 20 --output json --output-file report.json
 
-For more information, visit: https://github.com/Kirat0201/SSH-Log-Analyzer
+For more information, visit: https://github.com/Kirat0201/SSHSentry
         """
     )
     
@@ -623,7 +623,7 @@ For more information, visit: https://github.com/Kirat0201/SSH-Log-Analyzer
     parser.add_argument(
         '--version',
         action='version',
-        version='SSH Log Sentinel v1.0.0'
+        version='SSHSentry v1.0.0'
     )
     
     return parser.parse_args()
@@ -631,7 +631,7 @@ For more information, visit: https://github.com/Kirat0201/SSH-Log-Analyzer
 
 def main() -> int:
     """
-    Main entry point for the SSH Log Sentinel application.
+    Main entry point for the SSHSentry application.
     
     Returns:
         Exit code (0 for success, 1 for error)
@@ -641,21 +641,21 @@ def main() -> int:
         args = parse_arguments()
         
         # Initialize and run analysis
-        sentinel = SSHLogSentinel(args.file, args.threshold)
-        threat_reports, statistics = sentinel.run_analysis()
+        sentry = SSHSentry(args.file, args.threshold)
+        threat_reports, statistics = sentry.run_analysis()
         
         # Always print console report
-        sentinel.reporter.print_console_report(threat_reports, statistics)
+        sentry.reporter.print_console_report(threat_reports, statistics)
         
         # Export to requested format(s) - even if empty for consistency
         if args.output:
             if args.output in ['csv', 'both']:
                 csv_file = args.output_file if args.output == 'csv' else f"{args.output_file or 'threats'}.csv"
-                sentinel.reporter.export_to_csv(threat_reports, csv_file)
+                sentry.reporter.export_to_csv(threat_reports, csv_file)
             
             if args.output in ['json', 'both']:
                 json_file = args.output_file if args.output == 'json' else f"{args.output_file or 'threats'}.json"
-                sentinel.reporter.export_to_json(threat_reports, statistics, json_file)
+                sentry.reporter.export_to_json(threat_reports, statistics, json_file)
         
         return 0
         
