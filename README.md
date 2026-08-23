@@ -494,8 +494,6 @@ This project is licensed under the APACHE 2.0 License. See [LICENSE](LICENSE) fi
 
 **Harkirat Kalra**
 
-Based on the original [SSH Log Sentinel](https://github.com/Anamitra-Sarkar/SSH-Log-Analyzer) by **Anamitra Sarkar**.
-
 ---
 
 ## 🎓 Educational Value
